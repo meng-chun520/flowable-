@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+             typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath"
+             targetNamespace="http://www.flowable.org/processdef">
+  <process id="askForLeave" name="askForLeave" isExecutable="true">
+    <startEvent id="start" name="开始请假流程"/>
+    <userTask id="studentPart" name="学生请假申请" flowable:assignee="学生">
+    </userTask>
+    <userTask id="counselorPart" name="辅导员审批" flowable:assignee="辅导员"/>
+    <userTask id="vicePresidentPart" name="副院长审批" flowable:assignee="副院长"/>
+    <endEvent id="end" name="结束请假流程"/>
+    <sequenceFlow id="studentPass" sourceRef="studentPart" targetRef="counselorPart" name="学生申请请假成功">
+      <conditionExpression><![CDATA[${outcome=='pass'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="counselorPass" sourceRef="counselorPart" targetRef="vicePresidentPart" name="辅导员通过">
+      <conditionExpression><![CDATA[${outcome=='pass'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="vicePresidentPass" sourceRef="vicePresidentPart" targetRef="end" name="副院长通过">
+      <conditionExpression><![CDATA[${outcome=='pass'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="counselorBack" sourceRef="counselorPart" targetRef="studentPart" name="辅导员驳回">
+      <conditionExpression><![CDATA[${outcome=='back'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="vicePresidentBack" sourceRef="vicePresidentPart" targetRef="studentPart" name="副院长驳回">
+      <conditionExpression><![CDATA[${outcome=='back'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="startPass" sourceRef="start" targetRef="studentPart" name="开启请假流程启动"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_askForLeave">
+    <bpmndi:BPMNPlane bpmnElement="askForLeave" id="BPMNPlane_askForLeave">
+      <bpmndi:BPMNShape id="shape-8b431cec-cfdf-4c41-835a-2fa40b76b918" bpmnElement="start">
+        <omgdc:Bounds x="-160.0" y="-10.0" width="30.0" height="30.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape-ebece1a8-724d-4b3c-9a1d-81406f3bb276" bpmnElement="studentPart">
+        <omgdc:Bounds x="-45.0" y="-35.0" width="100.0" height="80.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape-c22e6e7c-3b19-43e0-86fe-6ae1b8904915" bpmnElement="counselorPart">
+        <omgdc:Bounds x="115.0" y="-35.0" width="100.0" height="80.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape-2f2a6b9e-4c74-4eaf-b7f6-7277a78142b1" bpmnElement="vicePresidentPart">
+        <omgdc:Bounds x="255.0" y="-35.0" width="100.0" height="80.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape-6bff76a9-002c-4f90-a581-5882df44e90d" bpmnElement="end">
+        <omgdc:Bounds x="405.0" y="-10.0" width="30.0" height="30.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge-06a2b5f2-243d-49d1-bc35-5bed6bc2b1e5" bpmnElement="studentPass">
+        <omgdi:waypoint x="55.0" y="5.0"/>
+        <omgdi:waypoint x="115.0" y="5.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge-7adc25db-6dd0-4cf4-ad7a-e33371e584c2" bpmnElement="counselorPass">
+        <omgdi:waypoint x="215.0" y="5.0"/>
+        <omgdi:waypoint x="255.0" y="5.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge-2dfc488d-975d-426f-8f1b-9d3c4b7c0373" bpmnElement="vicePresidentPass">
+        <omgdi:waypoint x="355.0" y="5.0"/>
+        <omgdi:waypoint x="405.0" y="5.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge-32936748-c81a-4f73-a1bb-fc9a60b7a081" bpmnElement="counselorBack">
+        <omgdi:waypoint x="165.0" y="-35.0"/>
+        <omgdi:waypoint x="165.0" y="-60.0"/>
+        <omgdi:waypoint x="90.0" y="-60.0"/>
+        <omgdi:waypoint x="5.0" y="-60.0"/>
+        <omgdi:waypoint x="5.0" y="-35.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge-5c25e654-52a8-4550-89c3-ad3f68c11947" bpmnElement="vicePresidentBack">
+        <omgdi:waypoint x="305.00003" y="-35.0"/>
+        <omgdi:waypoint x="305.0" y="-79.99999"/>
+        <omgdi:waypoint x="5.0" y="-79.999985"/>
+        <omgdi:waypoint x="5.0" y="-35.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge-9abfabbe-c6f2-4ed4-8d7f-3af5b5d31b82" bpmnElement="startPass">
+        <omgdi:waypoint x="-130.0" y="5.0"/>
+        <omgdi:waypoint x="-45.0" y="5.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
