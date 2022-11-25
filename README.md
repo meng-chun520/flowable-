@@ -10,6 +10,17 @@
     </p>
     <img src="https://github.com/meng-chun520/flowable-/blob/main/flowable/src/main/resources/pic/byPerson/flow.png">
 <h2>数据库</h2>
+CREATE TABLE `sys_user`  (
+  `id` bigint NOT NULL DEFAULT 0,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `identity` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '0 学生 1辅导员 2副院长',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+SET FOREIGN_KEY_CHECKS = 1;<br>
+INSERT INTO `flowable_`.`sys_user` (`id`, `name`, `identity`) VALUES (2016225500022, '小明', '0');<br>
+INSERT INTO `flowable_`.`sys_user` (`id`, `name`, `identity`) VALUES (2016225500023, '李想', '1');<br>
+INSERT INTO `flowable_`.`sys_user` (`id`, `name`, `identity`) VALUES (2016225500031, '张卫国', '2');<br>
+
 <h2>demo</h2>
     (1)小明申请病假,启动流程<br>
     <img src="https://github.com/meng-chun520/flowable-/blob/main/flowable/src/main/resources/pic/byPerson/xiaomingstart.png"><br>
@@ -27,8 +38,6 @@
     <img src="https://github.com/meng-chun520/flowable-/blob/main/flowable/src/main/resources/pic/byPerson/vicePresidentApply.png"><br>
     (6)查询到待审批的任务时，可以查看流程进展到哪一步<br>
     <img src="https://github.com/meng-chun520/flowable-/blob/main/flowable/src/main/resources/pic/byPerson/processDiagram.png"><br>
-
-
 
 <h1>按照角色审核</h1>
 <p>具有某种角色的审核人进行审核</p>
