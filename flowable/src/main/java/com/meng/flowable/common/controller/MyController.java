@@ -1,5 +1,6 @@
 package com.meng.flowable.common.controller;
 
+import com.meng.flowable.common.entity.ApplyUserParam;
 import com.meng.flowable.common.service.MyService;
 import org.flowable.bpmn.model.BpmnModel;
 import org.flowable.engine.*;
@@ -8,9 +9,7 @@ import org.flowable.engine.runtime.ProcessInstance;
 import org.flowable.image.ProcessDiagramGenerator;
 import org.flowable.task.api.Task;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
@@ -37,9 +36,9 @@ public class MyController {
     private ProcessEngine processEngine;
     @Autowired
     private MyService myService;
-    @GetMapping(value = "/add")
-    public String addExpense(Long applyUserId,String applyUsername,String reason) {
-        return myService.addExpense(applyUserId,applyUsername,reason);
+    @PostMapping(value = "/add")
+    public String addExpense(@RequestBody ApplyUserParam applyUserParam) {
+        return myService.add(applyUserParam);
     }
     @RequestMapping(value = "/processDiagram")
     public void genProcessDiagram(HttpServletResponse httpServletResponse, String processId) throws Exception {

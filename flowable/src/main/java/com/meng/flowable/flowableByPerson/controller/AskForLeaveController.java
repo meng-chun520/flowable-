@@ -27,6 +27,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.zip.CheckedInputStream;
@@ -45,7 +47,7 @@ public class AskForLeaveController {
     @Autowired
     private HistoryService historyService;
     @RequestMapping(value = "/list")
-    public List<ApplyUser> list(String assignee) {
+    public List<ApplyUser> list(String assignee) throws ParseException {
         List<ApplyUser> applyUserList = new ArrayList<>();
         List<Task> tasks = taskService.createTaskQuery().taskAssignee(assignee).list();
         for (Task task : tasks) {
