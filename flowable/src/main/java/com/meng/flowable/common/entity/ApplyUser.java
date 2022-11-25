@@ -7,6 +7,7 @@ import java.util.List;
 @Data
 public class ApplyUser {
     private String taskId;
+    private String processId;
     private Long applyUserId;
     private String reason;
     private String applyUsername;

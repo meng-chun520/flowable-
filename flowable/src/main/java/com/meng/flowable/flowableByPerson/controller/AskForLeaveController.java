@@ -76,6 +76,7 @@ public class AskForLeaveController {
 
             }
             variables.put("taskId",task.getId());
+            variables.put("processId",task.getProcessInstanceId());
             ApplyUser applyUser = BeanUtil.toBeanIgnoreCase(variables, ApplyUser.class, false);
             checkUserList.sort(Comparator.comparing(CheckUser::getCreateTime));
             applyUser.setCheckUserList(checkUserList);
